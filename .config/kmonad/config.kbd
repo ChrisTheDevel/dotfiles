@@ -1,0 +1,87 @@
+;; setxkbmap -layout us -variant altgr-intl -option nodeadkeys
+(defcfg
+  input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink
+          "KMonad: L15AMD"
+          "sleep 0.2s; xset r rate 300 50; sleep 0.5s; setxkbmap -layout us -variant altgr-intl -option nodeadkeys")
+
+  ;; Comment this is you want unhandled events not to be emitted
+  fallthrough true
+
+  ;; Set this to false to disable any command-execution in KMonad
+  allow-cmd true
+)
+
+
+(defalias
+  ecm (tap-next esc lmet)   ;; Escape    when tapped, Control when held
+  bcn (tap-next \   rctl)   ;; Backslash when tapped, Control when held
+  tsn (tap-next tab lmet)   ;; Tab       when tapped, Super   when held
+  bsn (tap-next [   rmet)  ;; Bracket   when tapped, Super   when held
+)
+
+(defalias dis displayoff)
+
+#| Layer template
+ |(deflayer name
+ |        _     _     _           _     _     _     _                              
+ |  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _   
+ |  _     _     _     _     _     _     _     _     _     _     _     _     _     _                       _     _     _     _   
+ |  _     _     _     _     _     _     _     _     _     _     _     _     _     _                       _     _     _     _   
+ |  _     _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _   
+ |  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _   
+ |        _     _      _                 _                _     _     _     _     _     _     _           _     _    
+ |)
+|#
+
+(defsrc
+        mute   volu  vold        brdn  brup  displayoff  wlan                           
+  esc   f1     f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   home  end   ins   del
+  grv   1      2     3     4     5     6     7     8     9     0     -     =     bspc                    nlck  kp/   kp*   kp-
+  tab   q      w     e     r     t     y     u     i     o     p     [     ]     ret                     kp7   kp8   kp9   kp+
+  caps   a     s     d     f     g     h     j     k     l     ;     '     \                             kp4   kp5   kp6
+  lsft  102d   z     x     c     v     b     n     m     ,     .     /     rsft  pgup  up    pgdn        kp1   kp2   kp3   kprt
+        lctl  lmet   lalt              spc               ralt  ssrq  cmp   rctl  left  down  rght        kp0   kp.  
+)
+
+(defalias
+  qwr (layer-switch qwerty)
+  col (layer-switch colemakdh)
+)
+
+(deflayer colemakdh
+        mute   volu  vold        brdn  brup  @dis  wlan                           
+  esc   f1     f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   home  end   ins   del
+  grv   1      2     3     4     5     6     7     8     9     0     -     =     bspc                    nlck  kp/   kp*   kp-
+  @stab q      w     f     p     b     j     l     u     y     ;     [     ]     ret                     kp7   kp8   kp9   kp+
+  @ecm  a      r     s     t    g      m     n     e     i     o     '     \                             kp4   kp5   kp6
+  lsft  z      x     c     d     v     XX    k     h     ,     .     /     rsft  pgup  up    pgdn        @qwr   kp2   kp3   kprt
+        lmet  lalt   lctl              spc               rctl  lalt  cmp   ssrq  left  down  rght        kp0   kp.  
+)
+
+(deflayer qwerty
+        mute  volu  vold        brdn  brup  displayoff  wlan                           
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   home  end   ins   del
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc                    nlck  kp/   kp*   kp-
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     ret                     kp7   kp8   kp9   kp+
+  @ecm  a     s     d     f     g     h     j     k     l     ;     '     \                             kp4   kp5   kp6
+  lsft  102d  z     x     c     v     b     n     m     ,     .     /     rsft  pgup  up    pgdn        @col  kp2   kp3   kprt
+        lctl  lmet  lalt              spc               ralt  ssrq  cmp   rctl  left  down  rght        kp0   kp.  
+)
+
+(defalias
+ stab (tap-hold 200 tab  (layer-toggle swedish-chars))
+ å (around ralt w)
+ ö (around ralt p)
+ ä (around ralt q)
+)
+
+(deflayer swedish-chars
+        _     _     _           _     _     _     _                              
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _   
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _                       _     _     _     _   
+  _     _     _     _     _     _     _     _     _     _     _     @å    _     _                       _     _     _     _   
+  _     _     _     _     _     _     _     _     _     _     @ö    @ä    _                             _     _     _   
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _   
+        _     _      _                 _                _     _     _     _     _     _     _           _     _    
+)
