@@ -2,7 +2,7 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.local/bin/status_bar"
 export PATH="$PATH:$HOME/.local/rofi"
 
-export EDITOR="nvim"
+export EDITOR="helix"
 export TERMINAL="alacritty"
 export BROWSER="brave"
 
