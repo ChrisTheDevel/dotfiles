@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+rofi -no-lay-grab -show drun -modi drun -theme "$HOME/.local/rofi/theme.rasi"
