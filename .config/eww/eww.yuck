@@ -1,0 +1,90 @@
+(defvar activeW 0) ;; this can be used to update the look of the active tag
+(defvar w1Empty true)
+(defvar w2Empty true)
+(defvar w3Empty true)
+(defvar w4Empty true)
+(defvar w5Empty true)
+(defvar w6Empty true)
+(defvar w7Empty true)
+(defvar w8Empty true)
+(defvar w9Empty true)
+
+
+(defwidget bar [] 
+  (centerbox :orientation "h"
+             :class "bar"
+    (workspaces)
+    (clock)
+    (rightwidgets)))
+
+(defwidget leftwidgets []
+  (widgetbox :halign "center"
+    ))
+
+(defwidget rightwidgets []
+  (widgetbox :halign "end"
+    (volume)
+    (cpu)
+    (ram)
+    (battery)
+    ))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 15
+    (wbutton :number 1 :isEmpty {w1Empty})
+    (wbutton :number 2 :isEmpty {w2Empty})
+    (wbutton :number 3 :isEmpty {w3Empty})
+    (wbutton :number 4 :isEmpty {w4Empty})
+    (wbutton :number 5 :isEmpty {w5Empty})
+    (wbutton :number 6 :isEmpty {w6Empty})
+    (wbutton :number 7 :isEmpty {w7Empty})
+    (wbutton :number 8 :isEmpty {w8Empty})
+    (wbutton :number 9 :isEmpty {w9Empty})))
+
+(defwidget widgetbox [halign]
+  (box :orientation "h" :space-evenly false :spacing 15 :halign {halign} (children)))
+
+
+(defwidget clock []
+    "${time}")
+
+(defwidget battery [] "Bat: ${EWW_BATTERY['BAT0'].capacity}%")
+(defwidget ram [] "Ram: ${round(EWW_RAM.used_mem / 1000000, 2)}GB/${round(EWW_RAM.total_mem /1000000, 2)}GB")
+
+(defwidget cpu [] (box :orientation "h"
+        "Cpu:"
+        (for cpu_stat in {EWW_CPU.cores}
+             "${cpu_stat.usage}%")))
+
+(defwidget network [] "Wifi: ${EWW_NET['wlp3s0']}")
+
+(defwidget wbutton [number isEmpty]
+    (button :class {isEmpty ? "emptyworkspace" : "nonwmptyworkspace"}:onclick "wmctrl -s ${number - 1}" 
+            {number == activeW ? "" : ""}))
+
+
+(defwidget volume [] "Vol: ${sound}")
+
+(defpoll sound 
+         :interval "3s"
+         :initial 0
+         `pamixer --get-volume`)
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "3%"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "3%")
+  (bar))
+;; vim:ft=lisp

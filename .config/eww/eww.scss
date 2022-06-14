@@ -1,0 +1,26 @@
+$white: #FFFFFF;
+$rich-black: #0E171E;
+$sage: #C6C19E;
+$pale-silver: #BBB6AA;
+$gunmetal: #263240;
+$radical-red: #F13D5E;
+$medium-spring-green: #07F799;
+$lemon-glacier: #FCFD0A;
+$sapphire-blue: #10689B;
+
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+  font-family: "FiraCode Nerd Font";
+}
+
+.bar {
+  color: $white;
+}
+
+.emptyworkspace {
+  color: $gunmetal;
+}
+
+.nonwmptyworkspace{
+  color: $white;
+}
