@@ -1,0 +1,236 @@
+theme = "dark_plus"
+
+[editor]
+scrolloff = 3
+mouse = true
+middle-click-paste = true
+scroll-lines = 3
+shell = ["sh", "-c"]
+line-number = "relative"
+gutters = ["diagnostics", "line-numbers"]
+auto-completion = true
+auto-format = true
+idle-timeout = 400
+completion-trigger-len = 2
+auto-info = true
+true-color = false
+rulers = []
+
+[editor.lsp]
+display-messages = false
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = true
+parents = true
+ignore = true
+git-ignore = true
+git-global = true
+git-exclude = true
+# max-depth = "None"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+"'" = "'"
+'`' = '`'
+'<' = '>'
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[editor.whitespace]
+render = "none"
+
+[keys.normal]
+# unset keys
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+e = "no_op"
+E = "no_op"
+i = "no_op"
+I = "no_op"
+o = "no_op"
+O = "no_op"
+A-o = "no_op"
+A-i = "no_op"
+A-n = "no_op"
+n = "no_op"
+N = "no_op"
+J = "no_op" 
+K = "no_op"
+C-i = "no_op"
+C-o = "no_op"
+# set them
+n = "move_char_left"
+e = "move_line_down"
+i = "move_line_up"
+o = "move_char_right"
+j = "move_next_word_end"
+J = "move_next_long_word_end"
+k = "insert_mode"
+K = "prepend_to_line"
+l = "open_below"
+L = "open_above"
+A-l = "expand_selection"
+A-k = "shrink_selection"
+A-h = "select_next_sibling"
+h = "search_next"
+H = "search_prev"
+E = "join_selections" 
+I = "keep_selections"
+C-k = "jump_forward"
+C-l = "jump_backward"
+[keys.normal.z]
+# unset
+k = "no_op"
+j = "no_op"
+# set
+e = "scroll_up"
+i = "scroll_down"
+[keys.normal.Z]
+# unset
+k = "no_op"
+j = "no_op"
+# set
+e = "scroll_up"
+i = "scroll_down"
+[keys.normal.g]
+# unset
+e = "no_op"
+h = "no_op"
+l = "no_op"
+i = "no_op"
+n = "no_op"
+# set
+j = "goto_last_line"
+n = "goto_line_start"
+o = "goto_line_end"
+k = "goto_implementation"
+h = "goto_next_buffer"
+[keys.normal.m]
+#unset
+i = "no_op"
+#set
+k = "select_textobject_inner"
+[keys.normal.C-w]
+#unset
+C-o= "no_op"
+o = "no_op"
+C-h= "no_op"
+h = "no_op"
+C-j= "no_op"
+j = "no_op"
+C-k= "no_op"
+k = "no_op"
+C-l= "no_op"
+l = "no_op"
+H = "no_op"
+J = "no_op"
+K = "no_op"
+L = "no_op"
+n = "no_op"
+#set
+C-l= "wonly"
+l = "wonly"
+C-n= "jump_view_left"
+n = "jump_view_left"
+C-e= "jump_view_down"
+e = "jump_view_down"
+C-i= "jump_view_up"
+i = "jump_view_up"
+C-o= "jump_view_right"
+o = "jump_view_right"
+N = "swap_view_left"
+E = "swap_view_down"
+I = "swap_view_up"
+O = "swap_view_right"
+
+[keys.normal.C-w.h]
+#set
+C-s = "hsplit_new"
+s = "hsplit_new"
+C-v = "vsplit_new"
+v = "vsplit_new"
+
+[keys.normal.space.w]
+#unset
+C-o= "no_op"
+o = "no_op"
+C-h= "no_op"
+h = "no_op"
+C-j= "no_op"
+j = "no_op"
+C-k= "no_op"
+k = "no_op"
+C-l= "no_op"
+l = "no_op"
+H = "no_op"
+J = "no_op"
+K = "no_op"
+L = "no_op"
+n = "no_op"
+#set
+C-l= "wonly"
+l = "wonly"
+C-n= "jump_view_left"
+n = "jump_view_left"
+C-e= "jump_view_down"
+e = "jump_view_down"
+C-i= "jump_view_up"
+i = "jump_view_up"
+C-o= "jump_view_right"
+o = "jump_view_right"
+N = "swap_view_left"
+E = "swap_view_down"
+I = "swap_view_up"
+O = "swap_view_right"
+
+[keys.normal.space.w.h]
+#set
+C-s = "hsplit_new"
+s = "hsplit_new"
+C-v = "vsplit_new"
+v = "vsplit_new"
+[keys.select]
+#unset
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+e = "no_op"
+E = "no_op"
+n = "no_op"
+N = "no_op"
+#set
+n = "extend_char_left"
+e = "extend_line_down"
+i = "extend_line_up"
+o = "extend_char_right"
+j = "extend_next_word_end"
+J = "extend_next_long_word_end"
+h = "extend_search_next"
+H = "extend_search_prev"
+
+[keys.insert]
+#unset
+C-h = "no_op"
+C-j = "no_op"
+C-n = "no_op"
+C-e = "no_op"
+C-k = "no_op"
+#set
+C-n = "delete_char_backward"
+C-e = "insert_newline"
+C-h = "move_line_down"
+C-j = "goto_line_end_newline"
+C-i = "kill_to_line_end"
