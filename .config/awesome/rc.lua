@@ -47,6 +47,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/fincei/.config/awesome/default/theme.lua")
 --beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.gap_single_client = false
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -234,6 +235,14 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "i", function () awful.screen.focus_relative(-1) end, {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto, {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab", function () awful.client.focus.history.previous() if client.focus then client.focus:raise() end end, {description = "go back", group = "client"}),
+    awful.key({ modkey,           }, "n", function () awful.tag.incmwfact(-0.05)          end, {description = "decrease master width factor", group = "layout"}),
+    awful.key({ modkey,           }, "o", function () awful.tag.incmwfact( 0.05)          end, {description = "increase master width factor", group = "layout"}),
+    awful.key({ modkey,           }, "l", function () awful.layout.inc( 1)                end, {description = "select next", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "l", function () awful.layout.inc(-1)                end, {description = "select previous", group = "layout"}),
+    --awful.key({ modkey,           }, "Up", function () beautiful.useless_gap += 1          end, {description = "alter gaps", group = "layout"}),
+    --awful.key({ modkey,           }, "Down", function () beautiful.useless_gap -= 1          end, {description = "alter gaps", group = "layout"}),
+
+    awful.key({ modkey, "Control" }, "h", function () local c = awful.client.restore() if c then c:emit_signal( "request::activate", "key.unminimize", {raise = true} ) end end, {description = "restore minimized", group = "client"}),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end, {description = "open a terminal", group = "launcher"}),
@@ -241,18 +250,18 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart, {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit, {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ modkey,           }, "n", function () awful.tag.incmwfact(-0.05)          end, {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "o", function () awful.tag.incmwfact( 0.05)          end, {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "l", function () awful.layout.inc( 1)                end, {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l", function () awful.layout.inc(-1)                end, {description = "select previous", group = "layout"}),
-
-    awful.key({ modkey, "Control" }, "h", function () local c = awful.client.restore() if c then c:emit_signal( "request::activate", "key.unminimize", {raise = true} ) end end, {description = "restore minimized", group = "client"}),
-
     -- Prompt
     awful.key({ modkey,           }, "space", function () awful.spawn("app-launcher") end, {description = "open a browser", group = "launcher"}),
 
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end, {description = "show the menubar", group = "launcher"})
+    awful.key({ modkey }, "p", function() menubar.show() end, {description = "show the menubar", group = "launcher"}),
+
+ -- Volume Keys
+   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer --allow-boost -d 3", false) end),
+   awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer --allow-boost -i 3", false) end),
+   awful.key({}, "XF86AudioMute", function () awful.util.spawn("pamixer -t", false) end),
+   awful.key({}, "XF8MonBrightnessUp", function () awful.util.spawn("brightnessctl set +10%", false) end),
+   awful.key({}, "XF8MonBrightnessDown", function () awful.util.spawn("brightnessctl set 10%-", false) end)
 )
 
 clientkeys = gears.table.join(
