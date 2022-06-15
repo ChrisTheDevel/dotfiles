@@ -27,7 +27,7 @@ window:
   opacity: 0.9
 
   # Window title
-  title: "Vem sköt Olof Palme?"
+  #title: "Vem sköt Olof Palme?"
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
