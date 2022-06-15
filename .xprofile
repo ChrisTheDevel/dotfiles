@@ -2,6 +2,5 @@
 setxkbmap -layout us -variant altgr-intl -option nodeadkeys &
 xset r rate 200 50 &
 dunst &
-stalonetray&
 feh --bg-scale "/home/fincei/Pictures/wallpapers/space.jpg" &
 picom -b &
